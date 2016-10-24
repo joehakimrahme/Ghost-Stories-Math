@@ -1,0 +1,22 @@
+<html>
+    <form action="/probability" method="GET" id="form1">
+        Dice:
+        <input type="radio" name="dice" value="1" checked> 1
+        <input type="radio" name="dice" value="2" checked> 2
+        <input type="radio" name="dice" value="3" checked> 3
+        <input type="radio" name="dice" value="4" checked> 4
+        <br />
+        Ghost resistance:
+        <input type="radio" name="resistance" value="1" checked> 1
+        <input type="radio" name="resistance" value="2" checked> 2
+        <input type="radio" name="resistance" value="3" checked> 3
+        <input type="radio" name="resistance" value="4" checked> 4
+        <br />
+        <input type="checkbox" name="Second Wind" value="sw"><label>Second Wind</label><br />
+        <input type="checkbox" name="Nameless" value="nm"><label>Nameless</label><br />
+    </form>
+    <button type="submit" form="form1" value="Submit">Submit</button>
+    {% if result %}
+    <p>Result: {{ result }}</p>
+    {% endif %}
+</html>

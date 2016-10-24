@@ -22,7 +22,22 @@ def create_app():
             powers.append("Second Wind")
         if not nameless:
             powers.append("Wild White")
-        result = str(Exorcism(dice, powers).probability(resistance))
+        result = Exorcism(dice, powers).probability(resistance)
+        return flask.render_template("index.html", result=result)
+
+    @app.route("/scenario")
+    def scenario():
+        dice = int(flask.request.args.get("dice"))
+        resistance = int(flask.request.args.get("resistance"))
+        second_wind = flask.request.args.get("Second Wind") == "sw"
+        nameless = flask.request.args.get("Nameless") == "nm"
+
+        powers = []
+        if second_wind:
+            powers.append("Second Wind")
+        if not nameless:
+            powers.append("Wild White")
+        result = Exorcism(dice, powers).scenario(resistance)
         return flask.render_template("index.html", result=result)
 
     return app

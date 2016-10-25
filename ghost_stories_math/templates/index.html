@@ -9,6 +9,22 @@
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <script src="js/bootstrap.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <style>
+         form {
+                margin: 0 auto;
+                width: 500px;
+                padding: 1em;
+                border: 1px solid #CCC;
+                border-radius: 1em;
+            }
+         label {
+             display: inline-block;
+             text-align: right;
+         }
+         input:focus {
+             border-color: #000;
+         }
+        </style>
     </head>
     <body>
 
@@ -25,32 +41,36 @@
                   </button>
               </li>
           </ul>
-          {% if result %}
-          <p class="btn btn-default" >{{ result }}</p>
+          {% if result != None %}
+          <p class="btn" >{{ result }}</p>
           {% endif %}
     </body>
 
       </nav>
       <form action="/probability" method="GET" id="form1">
-          <label>Dice:</label>
-          <input type="radio" name="dice" value="1" checked> 1
-          <input type="radio" name="dice" value="2" checked> 2
-          <input type="radio" name="dice" value="3" checked> 3
-          <input type="radio" name="dice" value="4" checked> 4
-          <br />
-          <label>Ghost resistance:</label>
-          <input type="radio" name="resistance" value="1" checked> 1
-          <input type="radio" name="resistance" value="2" checked> 2
-          <input type="radio" name="resistance" value="3" checked> 3
-          <input type="radio" name="resistance" value="4" checked> 4
-          <br />
-          <label>Second Wind:</label>
-          <input type="checkbox" name="Second Wind" value="sw">
-          <br />
-          <label>Nameless:</label>
-          <input type="checkbox" name="Nameless" value="nm">
-          <br />
+          <div>
+              <label>Dice:</label>
+              {% for idx in range(1, 5) %}
+              <input type="radio" name="dice" value="{{ idx }}" {% if dice == idx %}checked{% endif %}> {{ idx }}
+              {% endfor %}
+              <br />
+          </div>
+          <div>
+              <label>Ghost resistance:</label>
+              {% for idx in range(1, 5) %}
+              <input type="radio" name="resistance" value="{{ idx }}" {% if resistance == idx %}checked{% endif %}> {{ idx }}
+              {% endfor %}
+              <br />
+          </div>
+          <div>
+              <label>Second Wind:</label>
+              <input type="checkbox" name="Second Wind" value="sw" {% if second_wind %}checked{% endif %}>
+              <br />
+          </div>
+          <div>
+              <label>Nameless:</label>
+              <input type="checkbox" name="Nameless" value="nm" {% if nameless %}checked{% endif %}>
+              <br />
+          </div>
       </form>
-
-      <!-- <button type="submit" form="form1" value="Submit" class="btn btn-lg btn-default">Submit</button> -->
 </html>

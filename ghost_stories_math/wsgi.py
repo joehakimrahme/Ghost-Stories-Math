@@ -8,7 +8,12 @@ def create_app():
 
     @app.route("/")
     def index():
-        return flask.render_template("index.html", result=None)
+        return flask.render_template("index.html",
+                                     result=None,
+                                     dice=None,
+                                     resistance=None,
+                                     second_wind=False,
+                                     nameless=False)
 
     @app.route("/probability")
     def probability():
@@ -23,7 +28,12 @@ def create_app():
         if not nameless:
             powers.append("Wild White")
         result = Exorcism(dice, powers).probability(resistance)
-        return flask.render_template("index.html", result=result)
+        return flask.render_template("index.html",
+                                     result=result,
+                                     dice=dice,
+                                     resistance=resistance,
+                                     second_wind=second_wind,
+                                     nameless=nameless)
 
     @app.route("/scenario")
     def scenario():
@@ -38,7 +48,12 @@ def create_app():
         if not nameless:
             powers.append("Wild White")
         result = Exorcism(dice, powers).scenario(resistance)
-        return flask.render_template("index.html", result=result)
+        return flask.render_template("index.html",
+                                     result=result,
+                                     dice=dice,
+                                     resistance=resistance,
+                                     second_wind=second_wind,
+                                     nameless=nameless)
 
     return app
 

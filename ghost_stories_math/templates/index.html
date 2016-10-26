@@ -1,4 +1,10 @@
-<html>
+<!DOCTYPE html>
+{% macro radio(name, checked, rows=5) -%}
+{% for idx in range(1, rows) %}
+<input type="radio" name="{{ name }}" value="{{ idx }}" {% if idx == checked %}checked{% endif %}> {{ idx }}
+{% endfor %}
+{%- endmacro %}
+<html lang="en">
     <head>
         <!-- Bootstrap CDN -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -50,16 +56,12 @@
       <form action="/probability" method="GET" id="form1">
           <div>
               <label>Dice:</label>
-              {% for idx in range(1, 5) %}
-              <input type="radio" name="dice" value="{{ idx }}" {% if dice == idx %}checked{% endif %}> {{ idx }}
-              {% endfor %}
+              {{ radio('dice', dice) }}
               <br />
           </div>
           <div>
               <label>Ghost resistance:</label>
-              {% for idx in range(1, 5) %}
-              <input type="radio" name="resistance" value="{{ idx }}" {% if resistance == idx %}checked{% endif %}> {{ idx }}
-              {% endfor %}
+              {{ radio('resistance', resistance) }}
               <br />
           </div>
           <div>

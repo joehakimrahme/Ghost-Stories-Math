@@ -9,14 +9,12 @@ def create_app():
     @app.route("/")
     def index():
         return flask.render_template("index.html",
-                                     result=None,
-                                     dice=None,
-                                     resistance=None,
-                                     second_wind=False,
-                                     nameless=False)
+                                     dice=4,
+                                     resistance=1,
+                                     exorcism=None)
 
-    @app.route("/probability")
-    def probability():
+    @app.route("/exorcism")
+    def exorcism():
         dice = int(flask.request.args.get("dice"))
         resistance = int(flask.request.args.get("resistance"))
         second_wind = flask.request.args.get("Second Wind") == "sw"
@@ -27,34 +25,11 @@ def create_app():
             powers.append("Second Wind")
         if not nameless:
             powers.append("Wild White")
-        result = Exorcism(dice, powers).probability(resistance)
+        exorcism = Exorcism(dice, powers)
         return flask.render_template("index.html",
-                                     result=result,
                                      dice=dice,
                                      resistance=resistance,
-                                     second_wind=second_wind,
-                                     nameless=nameless)
-
-    @app.route("/scenario")
-    def scenario():
-        dice = int(flask.request.args.get("dice"))
-        resistance = int(flask.request.args.get("resistance"))
-        second_wind = flask.request.args.get("Second Wind") == "sw"
-        nameless = flask.request.args.get("Nameless") == "nm"
-
-        powers = []
-        if second_wind:
-            powers.append("Second Wind")
-        if not nameless:
-            powers.append("Wild White")
-        result = Exorcism(dice, powers).scenario(resistance)
-        return flask.render_template("index.html",
-                                     result=result,
-                                     dice=dice,
-                                     resistance=resistance,
-                                     second_wind=second_wind,
-                                     nameless=nameless)
-
+                                     exorcism=exorcism)
     return app
 
 if __name__ == "__main__":

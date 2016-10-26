@@ -24,6 +24,14 @@ class Exorcism(object):
             hits += roll.count('white')
         return hits >= resistance
 
+    @property
+    def second_wind(self):
+        return 'Second Wind' in self.special_powers
+
+    @property
+    def nameless(self):
+        return 'Wild White' not in self.special_powers
+
     def probability(self, resistance):
         all_combinations = list(itertools.product(colors, repeat=self.dice))
         success = []
